@@ -26,8 +26,22 @@ def get_animation_type(animations):
             print("Invalid choice, please enter a valid number.")
 
 def get_seconds():
-    seconds_string = input("Enter the seconds separated by commas: ")
-    return [float(x) for x in seconds_string.split(",")]
+    while True:
+        seconds_string = input("Enter the seconds separated by commas: ")
+        if seconds_string.strip() == "":
+            print("Invalid input. Please enter a valid number.")
+            continue
+        try:
+            seconds = [float(x.strip()) for x in seconds_string.split(",")]
+            seconds = list(set(seconds))
+            seconds = [x for x in seconds if x>=0]
+            if not seconds:
+                print("Invalid input. Please enter a valid number.")
+                continue
+            return seconds
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
 
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
