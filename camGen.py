@@ -12,8 +12,6 @@ def create_file(file_name, seconds, animation_type):
         f.write(data)
     print(f"{animation_type} added to {file_name}.")
 
-
-
 def get_animation_type(animations):
     while True:
         # Print animation options
@@ -28,7 +26,6 @@ def get_animation_type(animations):
             return animations[choice]
         else:
             print("Invalid choice, please enter a valid number.")
-
 
 def get_seconds():
     # Ask for input of seconds as a string
@@ -52,10 +49,8 @@ def get_seconds():
 
     return seconds
 
-
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
-
 
 def create_file_loop(file_name):
     while True:
@@ -82,8 +77,12 @@ def add_animations_loop(file_name):
             continue
         create_file(file_name, seconds, animation_type)
         another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+        if another_animation != "y" and another_animation != "n":
+            print("Invalid input. Please enter 'y' or 'n'.")
+            continue
         if another_animation != "y":
             break
+
 
 def create_animation_file(file_name):
     file_name = create_file_loop(file_name)
@@ -91,7 +90,6 @@ def create_animation_file(file_name):
     if not create_another_file():
         return False
     return True
-
 
 animations = {
     1: "translation_x",
