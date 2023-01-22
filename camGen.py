@@ -1,5 +1,5 @@
 import os
-
+import json
 
 def create_file(file_name, seconds, animation_type):
     # initialize with first value
@@ -114,6 +114,5 @@ animations = {
 
 while create_animation_file(input("Enter the file name: ") + "Camera"):
     pass
-
 
 # TODO: Create a file with animations that can be added to and read from, instead of updating this file with numbers
