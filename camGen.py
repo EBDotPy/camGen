@@ -1,5 +1,7 @@
 import os
 
+import os
+
 def create_file(file_name, seconds, animation_type):
     data = "\"{}\": \"".format(animation_type)
     for i, second in enumerate(seconds):
@@ -68,6 +70,12 @@ def create_animation_file(file_name):
             if animation_type is None:
                 break
             seconds = get_seconds()
+            if seconds is None:
+                continue
+            seconds = [x for x in seconds if x>=0]
+            if not seconds:
+                print("Invalid input. Please enter a valid number.")
+                continue
             create_file(file_name, seconds, animation_type)
             another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
             if another_animation != "y":
@@ -75,6 +83,7 @@ def create_animation_file(file_name):
         if not create_another_file():
             return False
     return True
+
 
 while create_animation_file(input("Enter the file name: ") + "Camera"):
     pass
