@@ -81,6 +81,7 @@ def create_file_loop(file_name):
             with open(os.path.join(dir_name, file_name), 'w') as f:
                 f.write('')
             break
+    # Note to self, don't forget to do this ever again, join the dir and file name
     return os.path.join(dir_name, file_name)
 
 
