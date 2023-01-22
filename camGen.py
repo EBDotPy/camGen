@@ -11,7 +11,7 @@ def create_file(file_name, seconds, animation_type):
     with open(file_name, "a") as f:
         f.write(data)
     print(f"{animation_type} added to {file_name}.")
-    f.close()
+
 
 
 def get_animation_type(animations):
@@ -37,7 +37,6 @@ def get_seconds():
     if seconds_string.strip() == "":
         print("Invalid input. Please enter a valid number.")
         return
-    # Convert seconds_string to a list of floats
     try:
         seconds = [float(x.strip()) for x in seconds_string.split(",")]
     except ValueError:
