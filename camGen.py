@@ -118,8 +118,18 @@ def create_animation_file(file_name):
     return create_another == "y"
 
 
-while create_animation_file(input("Enter the file name: ") + "Camera"):
-    pass
+def main():
+    file_name = input("Enter the file name: ") + "Camera"
+    load_animations()
+    while True:
+        create_animation_file(file_name)
+        another_file = input("Do you want to create another file? (y/n) ").lower()
+        if another_file != "y":
+            break
+
+if __name__ == "__main__":
+    main()
+
 
 # TODO: Create a file with animations that can be added to and read from, instead of updating this file with numbers
 # TODO: Get file to read all animation possibilities from Deforum
