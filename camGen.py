@@ -52,29 +52,31 @@ def create_another_file():
 
 
 def create_animation_file(file_name):
+    #create the file in the folder and checks if it exists
     while True:
-        file_name = add_txt_ext(file_name)
-        if file_exists(file_name):
-            continue
-        if not create_another():
-            return
-
-def add_txt_ext(file_name):
-    if not file_name.endswith(".txt"):
-        file_name += ".txt"
-    return file_name
-
-def file_exists(file_name):
-    if os.path.isfile(file_name):
-        overwrite = input(f"{file_name} already exists, overwrite? (y/n) ").lower()
-        if overwrite == "n":
-            return True
-    return False
-
-def create_another():
-    another_file = input("Create another file? (y/n) ").lower()
-    if another_file != "y":
-        return False
+        if not file_name.endswith(".txt"):
+            file_name += ".txt"
+        if os.path.isfile(file_name):
+            overwrite = input(f"{file_name} already exists, Do you want to overwrite? (y/n) ").lower()
+            if overwrite == "n":
+                continue
+        while True:
+            animation_type = get_animation_type(animations)
+            if animation_type is None:
+                break
+            seconds = get_seconds()
+            if seconds is None:
+                continue
+            seconds = [x for x in seconds if x>=0]
+            if not seconds:
+                print("Invalid input. Please enter a valid number.")
+                continue
+            create_file(file_name, seconds, animation_type)
+            another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+            if another_animation != "y":
+                break
+        if not create_another_file():
+            return False
     return True
 
 animations = {
