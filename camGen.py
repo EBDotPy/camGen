@@ -1,11 +1,11 @@
 import os
 
-def create_file(file_name, seconds, animation_type, initial_value):
+def create_file(file_name, seconds, animation_type):
     data = "\"{}\": \"".format(animation_type)
     for i, second in enumerate(seconds):
         if i == 0:
             data += "0:(), "
-        data += "{}:(), ".format(int(second*12), initial_value)
+        data += "{}:(), ".format(int(second*12))
     data = data[:-2] + "\",\n"
     with open(file_name, "a") as f:
         f.write(data)
@@ -64,10 +64,14 @@ while True:
         overwrite = input(f"{file_name} already exists, Do you want to overwrite? (y/n) ").lower()
         if overwrite == "n":
             continue
-    animation_type = get_animation_type(animations)
-    if animation_type is None:
-        break
-    seconds = get_seconds()
-    create_file(file_name, seconds, animation_type, animations[animation_type])
+    while True:
+        animation_type = get_animation_type(animations)
+        if animation_type is None:
+            break
+        seconds = get_seconds()
+        create_file(file_name, seconds, animation_type)
+        another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+        if another_animation != "y":
+            break
     if not create_another_file():
         break
