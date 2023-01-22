@@ -47,7 +47,6 @@ def get_seconds():
         except ValueError:
             print("Invalid input. Please enter a valid number.")
             continue
-
         # Remove duplicate values and negative values
         seconds = list(set(seconds))
         seconds = [x for x in seconds if x >= 0]
