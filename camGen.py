@@ -2,29 +2,39 @@ import os
 
 
 def create_file(file_name, seconds, animation_type):
-    data = "\"{}\": \"0:(),".format(animation_type) # initialize with first value
+    # initialize with first value
+    data = "\"{}\": \"0:(),".format(animation_type)
     for second in seconds:
         data += "{}:(),".format(int(second*12))
-    data = data[:-1] + "\",\n" # remove last comma and add closing quotes
+    # remove last comma and add closing quotes
+    data = data[:-1] + "\",\n"
     with open(file_name, "a") as f:
         f.write(data)
     print(f"{animation_type} added to {file_name}.")
 
 
 def get_animation_type(animations):
-    # Checks list of animation types and displays them by number
+    # Loop until valid choice is made
     while True:
+        # Print animation options
         print("Choose an animation type to add to the file:")
         for index, animation_type in animations.items():
             print(f"{index}: {animation_type}")
         print("0: Exit")
+        # Get user input
         choice = int(input())
+        # Check if choice is valid
         if choice == 0:
+            # Return None if user chooses to exit
             return None
         elif choice in animations:
+            # Return animation type if choice is valid
             return animations[choice]
         else:
+            # Print error message if choice is invalid
             print("Invalid choice, please enter a valid number.")
+
+
 
 def get_seconds():
     #handles the seconds calculation and checks for errors
