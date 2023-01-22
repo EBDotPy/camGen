@@ -21,16 +21,18 @@ def get_animation_type(animations):
         print("0: Exit")
         while True:
             try:
+                # Ask user to enter animation type choice
                 choice = int(input())
+                # Check if choice is 0, if so return None
                 if choice == 0:
                     return None
+                # Check if choice is a valid animation type
                 elif choice in animations:
                     return animations[choice]
                 else:
                     print("Invalid choice, please enter a valid number.")
             except ValueError:
                 print("Invalid input, please enter a valid number.")
-
 
 def get_seconds():
     # Ask for input of seconds as a string
@@ -55,63 +57,73 @@ def get_seconds():
             continue
         return seconds
 
-
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
 
-
 def create_file_loop(file_name):
+    # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
         file_name += ".txt"
     dir_name = os.path.dirname(file_name)
+    # Create directory if it doesn't already exist
     if dir_name:
         os.makedirs(dir_name, exist_ok=True)
     if os.path.exists(file_name):
+        # Ask user to enter different file name if file already exists
         file_name = input(f"{file_name} already exists, enter a different file name: ")
     else:
+        # Create new file
         open(file_name, 'w')
     return file_name
 
-
-
-
-
 def add_animations_loop(file_name):
+    # Loop until user chooses to exit
     while True:
+        # Get animation type from user
         animation_type = get_animation_type(animations)
+        # If animation type is None, continue to next iteration
         if animation_type is None:
             continue
+        # Get seconds from user
         seconds = get_seconds()
+        # If seconds is None, continue to next iteration
         if seconds is None:
             continue
+        # Remove negative seconds
         seconds = [x for x in seconds if x>=0]
+        # Check if seconds list is not empty
         if not seconds:
             print("Invalid input. Please enter a valid number.")
             continue
+        # Create file with animation and seconds
         create_file(file_name, seconds, animation_type)
+        # Loop until user enters valid input
         while True:
+            # Ask user if they want to add another animation
             another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+            # Check if input is valid
             if another_animation in ["y", "n"]:
                 break
             print("Invalid input. Please enter 'y' or 'n'.")
+        # If user doesn't want to add another animation, exit loop
         if another_animation != "y":
             return
 
-
-
-
-
-
 def create_animation_file(file_name):
+    # Create file and handle errors
     file_name = create_file_loop(file_name)
+    # Add animations to file
     add_animations_loop(file_name)
+    # Loop until user enters valid input
     while True:
+        # Ask user if they want to create another file
         create_another = input("Do you want to create another file? (y/n) ").lower()
+        # Check if input is valid
         if create_another in ["y", "n"]:
             break
         print("Invalid input. Please enter 'y' or 'n'.")
+    # Return True if user wants to create another file, False otherwise
     return create_another == "y"
-
 
 animations = {
     1: "translation_x",
@@ -125,7 +137,6 @@ animations = {
     9: "contrast_schedule",
     10: "cfg_scale_schedule"
 }
-
 while create_animation_file(input("Enter the file name: ") + "Camera"):
     pass
 
