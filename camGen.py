@@ -35,8 +35,6 @@ def get_animation_type(animations):
             except ValueError:
                 print("Invalid input, please enter a valid number.")
 
-
-
 import re
 
 def get_seconds():
@@ -57,8 +55,6 @@ def get_seconds():
         # Convert seconds to float and return
         return [float(x) for x in seconds]
 
-
-
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
 
@@ -77,8 +73,6 @@ def create_file_loop(file_name):
         # Create new file
         open(os.path.join(dir_name, file_name), 'w')
     return file_name
-
-
 
 def add_animations_loop(file_name):
     # Load animation types from file
@@ -105,8 +99,6 @@ def add_animations_loop(file_name):
 
     seconds = get_seconds()
     create_file(file_name, seconds, animation_type)
-
-
 
 
 def create_animation_file(file_name):
