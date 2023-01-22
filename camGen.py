@@ -83,7 +83,11 @@ def add_animations_loop(file_name):
             print(f"{index+1}: {animation_type}")
         print("0: Exit")
         # Ask user to enter animation type choice
-        choice = int(input())
+        choice = input()
+        if not choice:
+            print("Invalid input. Please enter a valid number.")
+            continue
+        choice = int(choice)
         # Check if choice is 0, if so return None
         if choice == 0:
             return None
@@ -92,13 +96,16 @@ def add_animations_loop(file_name):
             animation_type = animations[choice-1]
             seconds = get_seconds()
             create_file(file_name, seconds, animation_type)
-            add_another = input("Do you want to add another animation type? (y/n) ").lower() == "y"
-            if add_another:
+            while True:
+                add_another = input("Do you want to add another animation type? (y/n) ").lower()
+                if add_another in ['y', 'n']:
+                    break
+                print("Invalid input. Please enter 'y' or 'n'.")
+            if add_another == "y":
                 continue
             else:
-                return
-        else:
-            print("Invalid choice, please enter a valid number.")
+                print("Invalid choice please enter another number")
+
 
 
 def create_animation_file(file_name):
