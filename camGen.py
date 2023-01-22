@@ -52,6 +52,7 @@ def get_seconds():
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
 
+
 def create_file_loop(file_name):
     while True:
         if not file_name.endswith(".txt"):
@@ -59,9 +60,17 @@ def create_file_loop(file_name):
         if os.path.isfile(file_name):
             overwrite = input(f"{file_name} already exists, do you want to overwrite? (y/n) ").lower()
             if overwrite == "n":
-                file_name = input("Enter a different file name: ") + ".txt"
+                file_name = input("Enter a different file name: ")
+                if file_name.isdigit():
+                    print("Invalid file name, please enter a more descriptive name.")
+                    file_name = input("Enter a different file name: ")
                 continue
+        if not os.path.isvalid(file_name):
+            print("Invalid file name, please enter a different name.")
+            file_name = input("Enter a different file name: ")
+            continue
         return file_name
+
 
 def add_animations_loop(file_name):
     while True:
