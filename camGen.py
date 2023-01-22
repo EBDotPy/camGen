@@ -4,14 +4,18 @@ import re
 
 def create_file(file_name, seconds, animation_type):
     # initialize with first value
-    data = "\"{}\": \"0:(),".format(animation_type)
+    data = f'"{animation_type}": "0:(),"'
+
     for second in seconds:
-        data += "{}:(),".format(int(second*12))
+        data += f"{int(second*12)}:(),"
     # remove last comma and add closing quotes
-    data = data[:-1] + "\",\n"
+    data = data[:-1] + "\"\n"
     with open(file_name, "a") as f:
         f.write(data)
     print(f"{animation_type} added to {file_name}.")
+
+
+
 
 def get_animation_type(animations):
     while True:
@@ -93,12 +97,16 @@ def add_animations_loop(file_name):
         # Check if choice is a valid animation type
         elif choice in range(1, len(animations)+1):
             animation_type = animations[choice-1]
-            break
+            seconds = get_seconds()
+            create_file(file_name, seconds, animation_type)
+            add_another = input("Do you want to add another animation type? (y/n) ").lower() == "y"
+            if add_another:
+                continue
+            else:
+                return
         else:
             print("Invalid choice, please enter a valid number.")
 
-    seconds = get_seconds()
-    create_file(file_name, seconds, animation_type)
 
 
 def create_animation_file(file_name):
@@ -128,7 +136,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# TODO: Create a file with animations that can be added to and read from, instead of updating this file with numbers
-# TODO: Get file to read all animation possibilities from Deforum
