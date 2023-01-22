@@ -129,9 +129,6 @@ def main():
     file_name = input("Enter the file name: ") + "Camera"
     while True:
         create_animation_file(file_name)
-        another_file = input("Do you want to create another file? (y/n) ").lower()
-        if another_file != "y":
-            break
 
 if __name__ == "__main__":
     main()
