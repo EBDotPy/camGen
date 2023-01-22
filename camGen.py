@@ -55,23 +55,26 @@ animations = {
     6: "rotation_3d_z"
 }
 
-while True:
-    file_name = input("Enter the file name: ")
-    file_name += "Camera"
-    if not file_name.endswith(".txt"):
-        file_name += ".txt"
-    if os.path.isfile(file_name):
-        overwrite = input(f"{file_name} already exists, Do you want to overwrite? (y/n) ").lower()
-        if overwrite == "n":
-            continue
+def create_animation_file(file_name):
     while True:
-        animation_type = get_animation_type(animations)
-        if animation_type is None:
-            break
-        seconds = get_seconds()
-        create_file(file_name, seconds, animation_type)
-        another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
-        if another_animation != "y":
-            break
-    if not create_another_file():
-        break
+        if not file_name.endswith(".txt"):
+            file_name += ".txt"
+        if os.path.isfile(file_name):
+            overwrite = input(f"{file_name} already exists, Do you want to overwrite? (y/n) ").lower()
+            if overwrite == "n":
+                continue
+        while True:
+            animation_type = get_animation_type(animations)
+            if animation_type is None:
+                break
+            seconds = get_seconds()
+            create_file(file_name, seconds, animation_type)
+            another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+            if another_animation != "y":
+                break
+        if not create_another_file():
+            return False
+    return True
+
+while create_animation_file(input("Enter the file name: ") + "Camera"):
+    pass
