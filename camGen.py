@@ -1,5 +1,6 @@
 import os
 import json
+import re
 
 def create_file(file_name, seconds, animation_type):
     # initialize with first value
@@ -28,33 +29,25 @@ def get_animation_type(animations):
                     return None
                 # Check if choice is a valid animation type
                 elif choice in range(1, len(animations)+1):
-                    return animations[choice-1]
+                    return animations[choice]
                 else:
                     print("Invalid choice, please enter a valid number.")
             except ValueError:
                 print("Invalid input, please enter a valid number.")
 
+
 def get_seconds():
-    # Ask for input of seconds as a string
     while True:
         seconds_string = input("Enter the seconds separated by commas: ")
-        # Verify that input is not empty
         if not seconds_string.strip():
             print("You entered nothing, please enter a valid number.")
             continue
-        try:
-            seconds = [float(x.strip()) for x in seconds_string.split(",")]
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
-            continue
-        # Remove duplicate values and negative values
-        seconds = list(set(seconds))
-        seconds = [x for x in seconds if x >= 0]
-        # check if list is not empty
+        seconds = re.findall(r"[-+]?\d*\.\d+|\d+", seconds_string)
         if not seconds:
             print("Invalid input. Please enter a valid number.")
             continue
-        return seconds
+        return [float(x) for x in seconds]
+
 
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
@@ -63,17 +56,18 @@ def create_file_loop(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
         file_name += ".txt"
-    while os.path.exists(file_name) or file_name.strip() == "":
-        if os.path.exists(file_name):
-            print(f"{file_name} already exists.")
-        else:
-            print("file name is empty, please enter a valid file name")
-        file_name = input("Enter a different file name: ")
-    # Create directory if it doesn't already exist
-    os.makedirs(os.path.dirname(file_name), exist_ok=True)
-    # Create new file
-    open(file_name, 'w')
+    dir_name = os.path.dirname(file_name)
+    # Create directory if it doesn't already exist and dir_name is not empty
+    if dir_name and not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+    if os.path.exists(file_name):
+        # Ask user to enter different file name if file already exists
+        file_name = input(f"{file_name} already exists, enter a different file name: ")
+    else:
+        # Create new file
+        open(file_name, 'w')
     return file_name
+
 
 def add_animations_loop(file_name):
     # Loop until user chooses to exit
