@@ -11,27 +11,22 @@ def create_file(file_name, seconds, animation_type):
     with open(file_name, "a") as f:
         f.write(data)
     print(f"{animation_type} added to {file_name}.")
+    f.close()
 
 
 def get_animation_type(animations):
-    # Loop until valid choice is made
     while True:
         # Print animation options
         print("Choose an animation type to add to the file:")
         for index, animation_type in animations.items():
             print(f"{index}: {animation_type}")
         print("0: Exit")
-        # Get user input
         choice = int(input())
-        # Check if choice is valid
         if choice == 0:
-            # Return None if user chooses to exit
             return None
         elif choice in animations:
-            # Return animation type if choice is valid
             return animations[choice]
         else:
-            # Print error message if choice is invalid
             print("Invalid choice, please enter a valid number.")
 
 
@@ -64,13 +59,13 @@ def create_another_file():
 
 
 def create_file_loop(file_name):
-    #create the file in the folder and checks if it exists
     while True:
         if not file_name.endswith(".txt"):
             file_name += ".txt"
         if os.path.isfile(file_name):
-            overwrite = input(f"{file_name} already exists, Do you want to overwrite? (y/n) ").lower()
+            overwrite = input(f"{file_name} already exists, do you want to overwrite? (y/n) ").lower()
             if overwrite == "n":
+                file_name = input("Enter a different file name: ") + ".txt"
                 continue
         return file_name
 
