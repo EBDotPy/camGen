@@ -29,11 +29,12 @@ def get_animation_type(animations):
                     return None
                 # Check if choice is a valid animation type
                 elif choice in range(1, len(animations)+1):
-                    return animations[choice]
+                    return choice-1
                 else:
                     print("Invalid choice, please enter a valid number.")
             except ValueError:
                 print("Invalid input, please enter a valid number.")
+
 
 
 import re
@@ -65,17 +66,18 @@ def create_file_loop(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
         file_name += ".txt"
-    dir_name = os.path.dirname(file_name)
+    dir_name = 'output'
     # Create directory if it doesn't already exist and dir_name is not empty
-    if dir_name and not os.path.exists(dir_name):
+    if not os.path.exists(dir_name):
         os.makedirs(dir_name)
-    if os.path.exists(file_name):
+    if os.path.exists(os.path.join(dir_name, file_name)):
         # Ask user to enter different file name if file already exists
         file_name = input(f"{file_name} already exists, enter a different file name: ")
     else:
         # Create new file
-        open(file_name, 'w')
+        open(os.path.join(dir_name, file_name), 'w')
     return file_name
+
 
 
 def add_animations_loop(file_name):
@@ -97,8 +99,14 @@ def add_animations_loop(file_name):
         # Check if choice is a valid animation type
         elif choice in range(1, len(animations)+1):
             animation_type = animations[choice-1]
+            break
         else:
             print("Invalid choice, please enter a valid number.")
+
+    seconds = get_seconds()
+    create_file(file_name, seconds, animation_type)
+
+
 
 
 def create_animation_file(file_name):
@@ -120,7 +128,6 @@ def create_animation_file(file_name):
 
 def main():
     file_name = input("Enter the file name: ") + "Camera"
-    load_animations()
     while True:
         create_animation_file(file_name)
         another_file = input("Do you want to create another file? (y/n) ").lower()
