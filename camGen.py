@@ -1,19 +1,23 @@
 import os
-import json
 import re
 import sys
 
 def create_file(file_name, seconds, animation_type):
     # initialize with first value
-    data = f'"{animation_type}": "0:(),"'
-
+    data = "\"{}\": \"0:(),".format(animation_type)
     for second in seconds:
-        data += f"{int(second*12)}:(),"
+        data += "{}:(),".format(int(second*12))
     # remove last comma and add closing quotes
-    data = data[:-1] + "\"\n"
+    data = data[:-1] + "\",\n"
     with open(file_name, "a") as f:
+        print(file_name)
+        print(seconds)
+        print(animation_type)
+        print(data)
         f.write(data)
+        f.close()
     print(f"{animation_type} added to {file_name}.")
+
 
 
 def get_animation_type(animations):
@@ -74,9 +78,12 @@ def create_file_loop(file_name):
             file_name = create_another
         else:
             # Create new file
-            open(os.path.join(dir_name, file_name), 'w')
+            with open(os.path.join(dir_name, file_name), 'w') as f:
+                f.write('')
             break
-    return file_name
+    return os.path.join(dir_name, file_name)
+
+
 
 
 def add_animations_loop(file_name):
@@ -102,17 +109,12 @@ def add_animations_loop(file_name):
         # Check if choice is a valid animation type
         elif choice in range(1, len(animations)+1):
             animation_type = animations[choice-1]
+            # Get seconds from user
             seconds = get_seconds()
+            # Create file
             create_file(file_name, seconds, animation_type)
-            while True:
-                add_another = input("Do you want to add another animation type? (y/n) ").lower()
-                if add_another in ['y', 'n']:
-                    break
-                print("Invalid input. Please enter 'y' or 'n'.")
-            if add_another == "y":
-                continue
-            else:
-                print("Invalid choice please enter another number")
+
+
 
 
 def create_animation_file(file_name):
