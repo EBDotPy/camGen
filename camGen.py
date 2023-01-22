@@ -2,16 +2,14 @@ import os
 
 
 def create_file(file_name, seconds, animation_type):
-    # Creates output for file
-    data = "\"{}\": \"".format(animation_type)
-    for i, second in enumerate(seconds):
-        if i == 0:
-            data += "0:(), "
-        data += "{}:(), ".format(int(second*12))
-    data = data[:-2] + "\",\n"
+    data = "\"{}\": \"0:(),".format(animation_type) # initialize with first value
+    for second in seconds:
+        data += "{}:(),".format(int(second*12))
+    data = data[:-1] + "\",\n" # remove last comma and add closing quotes
     with open(file_name, "a") as f:
         f.write(data)
     print(f"{animation_type} added to {file_name}.")
+
 
 def get_animation_type(animations):
     # Checks list of animation types and displays them by number
