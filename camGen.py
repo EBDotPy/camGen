@@ -142,3 +142,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# TODO: Allow for different frame rates
+# TODO: Put in better order
