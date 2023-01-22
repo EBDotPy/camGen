@@ -56,7 +56,6 @@ def get_seconds():
         # Convert seconds to float and return
         return [float(x) for x in seconds]
 
-import sys
 
 def create_file_loop(file_name):
     # Ensure file has .txt extension
@@ -116,7 +115,6 @@ def add_animations_loop(file_name):
                 print("Invalid choice please enter another number")
 
 
-
 def create_animation_file(file_name):
     # Create file and handle errors
     file_name = create_file_loop(file_name)
@@ -132,8 +130,6 @@ def create_animation_file(file_name):
         sys.exit()
     else:
         return True
-
-
 
 
 def main():
