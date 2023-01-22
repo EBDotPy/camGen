@@ -63,7 +63,7 @@ def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
 
 
-def create_animation_file(file_name):
+def create_file_loop(file_name):
     #create the file in the folder and checks if it exists
     while True:
         if not file_name.endswith(".txt"):
@@ -72,24 +72,32 @@ def create_animation_file(file_name):
             overwrite = input(f"{file_name} already exists, Do you want to overwrite? (y/n) ").lower()
             if overwrite == "n":
                 continue
-        while True:
-            animation_type = get_animation_type(animations)
-            if animation_type is None:
-                break
-            seconds = get_seconds()
-            if seconds is None:
-                continue
-            seconds = [x for x in seconds if x>=0]
-            if not seconds:
-                print("Invalid input. Please enter a valid number.")
-                continue
-            create_file(file_name, seconds, animation_type)
-            another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
-            if another_animation != "y":
-                break
-        if not create_another_file():
-            return False
+        return file_name
+
+def add_animations_loop(file_name):
+    while True:
+        animation_type = get_animation_type(animations)
+        if animation_type is None:
+            break
+        seconds = get_seconds()
+        if seconds is None:
+            continue
+        seconds = [x for x in seconds if x>=0]
+        if not seconds:
+            print("Invalid input. Please enter a valid number.")
+            continue
+        create_file(file_name, seconds, animation_type)
+        another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+        if another_animation != "y":
+            break
+
+def create_animation_file(file_name):
+    file_name = create_file_loop(file_name)
+    add_animations_loop(file_name)
+    if not create_another_file():
+        return False
     return True
+
 
 animations = {
     1: "translation_x",
