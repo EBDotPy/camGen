@@ -54,22 +54,19 @@ def create_another_file():
 
 
 def create_file_loop(file_name):
-    while True:
-        if not file_name.endswith(".txt"):
-            file_name += ".txt"
-        if os.path.isfile(file_name):
-            overwrite = input(f"{file_name} already exists, do you want to overwrite? (y/n) ").lower()
-            if overwrite == "n":
-                file_name = input("Enter a different file name: ")
-                if file_name.isdigit():
-                    print("Invalid file name, please enter a more descriptive name.")
-                    file_name = input("Enter a different file name: ")
-                continue
-        if not os.path.isvalid(file_name):
-            print("Invalid file name, please enter a different name.")
-            file_name = input("Enter a different file name: ")
-            continue
-        return file_name
+    if not file_name.endswith(".txt"):
+        file_name += ".txt"
+    dir_name = os.path.dirname(file_name)
+    if dir_name:
+        os.makedirs(dir_name, exist_ok=True)
+    if os.path.exists(file_name):
+        file_name = input(f"{file_name} already exists, enter a different file name: ")
+    else:
+        open(file_name, 'w')
+    return file_name
+
+
+
 
 
 def add_animations_loop(file_name):
