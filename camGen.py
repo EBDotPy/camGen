@@ -89,9 +89,13 @@ def add_animations_loop(file_name):
 def create_animation_file(file_name):
     file_name = create_file_loop(file_name)
     add_animations_loop(file_name)
-    if not create_another_file():
-        return False
-    return True
+    while True:
+        create_another = input("Do you want to create another file? (y/n) ").lower()
+        if create_another in ["y", "n"]:
+            break
+        print("Invalid input. Please enter 'y' or 'n'.")
+    return create_another == "y"
+
 
 animations = {
     1: "translation_x",
