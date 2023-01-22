@@ -55,9 +55,6 @@ def get_seconds():
         # Convert seconds to float and return
         return [float(x) for x in seconds]
 
-def create_another_file():
-    return input("Do you want to create another file? (y/n) ").lower() == "y"
-
 def create_file_loop(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
