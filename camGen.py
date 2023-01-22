@@ -28,20 +28,26 @@ def get_animation_type(animations):
             print("Invalid choice, please enter a valid number.")
 
 def get_seconds():
+    # Ask for input of seconds as a string
     seconds_string = input("Enter the seconds separated by commas: ")
-    if seconds_string.strip() == "":
+    # Verify that input is not empty
+    if not seconds_string.strip():
+        print("You entered nothing, please enter a valid number.")
+        return None
+    try:
+        seconds = [float(x.strip()) for x in seconds_string.split(",")]
+    except ValueError:
         print("Invalid input. Please enter a valid number.")
-    else:
-        try:
-            seconds = [float(x.strip()) for x in seconds_string.split(",")]
-            seconds = list(set(seconds))
-            seconds = [x for x in seconds if x >= 0]
-            if not seconds:
-                print("Invalid input. Please enter a valid number.")
-            else:
-                return seconds
-        except ValueError:
-            print("Invalid input. Please enter a valid number.")
+        return None
+    # Remove duplicate values and negative values
+    seconds = list(set(seconds))
+    seconds = [x for x in seconds if x >= 0]
+    # check if list is not empty
+    if not seconds:
+        print("Invalid input. Please enter a valid number.")
+        return None
+    return seconds
+
 
 
     return seconds
@@ -70,7 +76,7 @@ def add_animations_loop(file_name):
     while True:
         animation_type = get_animation_type(animations)
         if animation_type is None:
-            return
+            continue
         seconds = get_seconds()
         if seconds is None:
             continue
@@ -82,6 +88,7 @@ def add_animations_loop(file_name):
         another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
         if another_animation != "y":
             return
+
 
 
 
