@@ -16,8 +16,8 @@ def get_animation_type(animations):
     while True:
         # Print animation options
         print("Choose an animation type to add to the file:")
-        for index, animation_type in animations.items():
-            print(f"{index}: {animation_type}")
+        for index, animation_type in enumerate(animations):
+            print(f"{index+1}: {animation_type}")
         print("0: Exit")
         while True:
             try:
@@ -27,8 +27,8 @@ def get_animation_type(animations):
                 if choice == 0:
                     return None
                 # Check if choice is a valid animation type
-                elif choice in animations:
-                    return animations[choice]
+                elif choice in range(1, len(animations)+1):
+                    return animations[choice-1]
                 else:
                     print("Invalid choice, please enter a valid number.")
             except ValueError:
@@ -63,16 +63,16 @@ def create_file_loop(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
         file_name += ".txt"
-    dir_name = os.path.dirname(file_name)
+    while os.path.exists(file_name) or file_name.strip() == "":
+        if os.path.exists(file_name):
+            print(f"{file_name} already exists.")
+        else:
+            print("file name is empty, please enter a valid file name")
+        file_name = input("Enter a different file name: ")
     # Create directory if it doesn't already exist
-    if dir_name:
-        os.makedirs(dir_name, exist_ok=True)
-    if os.path.exists(file_name):
-        # Ask user to enter different file name if file already exists
-        file_name = input(f"{file_name} already exists, enter a different file name: ")
-    else:
-        # Create new file
-        open(file_name, 'w')
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+    # Create new file
+    open(file_name, 'w')
     return file_name
 
 def add_animations_loop(file_name):
