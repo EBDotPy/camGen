@@ -28,24 +28,21 @@ def get_animation_type(animations):
             print("Invalid choice, please enter a valid number.")
 
 def get_seconds():
-    # Ask for input of seconds as a string
     seconds_string = input("Enter the seconds separated by commas: ")
-    # Verify that input is not empty
     if seconds_string.strip() == "":
         print("Invalid input. Please enter a valid number.")
-        return
-    try:
-        seconds = [float(x.strip()) for x in seconds_string.split(",")]
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-        return
-    # Remove duplicate values and negative values
-    seconds = list(set(seconds))
-    seconds = [x for x in seconds if x >= 0]
-    # check if list is not empty
-    if not seconds:
-        print("Invalid input. Please enter a valid number.")
-        return
+    else:
+        try:
+            seconds = [float(x.strip()) for x in seconds_string.split(",")]
+            seconds = list(set(seconds))
+            seconds = [x for x in seconds if x >= 0]
+            if not seconds:
+                print("Invalid input. Please enter a valid number.")
+            else:
+                return seconds
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
 
     return seconds
 
