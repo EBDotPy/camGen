@@ -85,7 +85,11 @@ animations = {
     3: "translation_z",
     4: "rotation_3d_x",
     5: "rotation_3d_y",
-    6: "rotation_3d_z"
+    6: "rotation_3d_z",
+    7: "noise_schedule",
+    8: "strength_schedule",
+    9: "contrast_schedule",
+    10: "cfg_scale_schedule"
 }
 
 while create_animation_file(input("Enter the file name: ") + "Camera"):
