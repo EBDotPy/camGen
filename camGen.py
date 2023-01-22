@@ -1,8 +1,8 @@
 import os
 
-import os
 
 def create_file(file_name, seconds, animation_type):
+    # Creates output for file
     data = "\"{}\": \"".format(animation_type)
     for i, second in enumerate(seconds):
         if i == 0:
@@ -14,6 +14,7 @@ def create_file(file_name, seconds, animation_type):
     print(f"{animation_type} added to {file_name}.")
 
 def get_animation_type(animations):
+    # Checks list of animation types and displays them by number
     while True:
         print("Choose an animation type to add to the file:")
         for index, animation_type in animations.items():
@@ -28,6 +29,7 @@ def get_animation_type(animations):
             print("Invalid choice, please enter a valid number.")
 
 def get_seconds():
+    #handles the seconds calculation and checks for errors
     while True:
         seconds_string = input("Enter the seconds separated by commas: ")
         if seconds_string.strip() == "":
@@ -48,16 +50,9 @@ def get_seconds():
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
 
-animations = {
-    1: "translation_x",
-    2: "translation_y",
-    3: "translation_z",
-    4: "rotation_3d_x",
-    5: "rotation_3d_y",
-    6: "rotation_3d_z"
-}
 
 def create_animation_file(file_name):
+    #create the file in the folder and checks if it exists
     while True:
         if not file_name.endswith(".txt"):
             file_name += ".txt"
@@ -84,6 +79,14 @@ def create_animation_file(file_name):
             return False
     return True
 
+animations = {
+    1: "translation_x",
+    2: "translation_y",
+    3: "translation_z",
+    4: "rotation_3d_x",
+    5: "rotation_3d_y",
+    6: "rotation_3d_z"
+}
 
 while create_animation_file(input("Enter the file name: ") + "Camera"):
     pass
