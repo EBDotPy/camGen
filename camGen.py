@@ -19,38 +19,42 @@ def get_animation_type(animations):
         for index, animation_type in animations.items():
             print(f"{index}: {animation_type}")
         print("0: Exit")
-        choice = int(input())
-        if choice == 0:
-            return None
-        elif choice in animations:
-            return animations[choice]
-        else:
-            print("Invalid choice, please enter a valid number.")
+        while True:
+            try:
+                choice = int(input())
+                if choice == 0:
+                    return None
+                elif choice in animations:
+                    return animations[choice]
+                else:
+                    print("Invalid choice, please enter a valid number.")
+            except ValueError:
+                print("Invalid input, please enter a valid number.")
+
 
 def get_seconds():
     # Ask for input of seconds as a string
-    seconds_string = input("Enter the seconds separated by commas: ")
-    # Verify that input is not empty
-    if not seconds_string.strip():
-        print("You entered nothing, please enter a valid number.")
-        return None
-    try:
-        seconds = [float(x.strip()) for x in seconds_string.split(",")]
-    except ValueError:
-        print("Invalid input. Please enter a valid number.")
-        return None
-    # Remove duplicate values and negative values
-    seconds = list(set(seconds))
-    seconds = [x for x in seconds if x >= 0]
-    # check if list is not empty
-    if not seconds:
-        print("Invalid input. Please enter a valid number.")
-        return None
-    return seconds
+    while True:
+        seconds_string = input("Enter the seconds separated by commas: ")
+        # Verify that input is not empty
+        if not seconds_string.strip():
+            print("You entered nothing, please enter a valid number.")
+            continue
+        try:
+            seconds = [float(x.strip()) for x in seconds_string.split(",")]
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+            continue
 
+        # Remove duplicate values and negative values
+        seconds = list(set(seconds))
+        seconds = [x for x in seconds if x >= 0]
+        # check if list is not empty
+        if not seconds:
+            print("Invalid input. Please enter a valid number.")
+            continue
+        return seconds
 
-
-    return seconds
 
 def create_another_file():
     return input("Do you want to create another file? (y/n) ").lower() == "y"
@@ -85,9 +89,14 @@ def add_animations_loop(file_name):
             print("Invalid input. Please enter a valid number.")
             continue
         create_file(file_name, seconds, animation_type)
-        another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+        while True:
+            another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+            if another_animation in ["y", "n"]:
+                break
+            print("Invalid input. Please enter 'y' or 'n'.")
         if another_animation != "y":
             return
+
 
 
 
