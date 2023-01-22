@@ -1,6 +1,7 @@
 import os
 import json
 import re
+import sys
 
 def create_file(file_name, seconds, animation_type):
     # initialize with first value
@@ -55,6 +56,8 @@ def get_seconds():
         # Convert seconds to float and return
         return [float(x) for x in seconds]
 
+import sys
+
 def create_file_loop(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
@@ -63,13 +66,19 @@ def create_file_loop(file_name):
     # Create directory if it doesn't already exist and dir_name is not empty
     if not os.path.exists(dir_name):
         os.makedirs(dir_name)
-    if os.path.exists(os.path.join(dir_name, file_name)):
-        # Ask user to enter different file name if file already exists
-        file_name = input(f"{file_name} already exists, enter a different file name: ")
-    else:
-        # Create new file
-        open(os.path.join(dir_name, file_name), 'w')
+    while True:
+        if os.path.exists(os.path.join(dir_name, file_name)):
+            # Ask user to enter different file name if file already exists
+            create_another = input(f"{file_name} already exists, enter a different file name or 'n' to exit: ").lower()
+            if create_another == "n":
+                sys.exit()
+            file_name = create_another
+        else:
+            # Create new file
+            open(os.path.join(dir_name, file_name), 'w')
+            break
     return file_name
+
 
 def add_animations_loop(file_name):
     # Load animation types from file
@@ -113,16 +122,18 @@ def create_animation_file(file_name):
     file_name = create_file_loop(file_name)
     # Add animations to file
     add_animations_loop(file_name)
-    # Loop until user enters valid input
     while True:
         # Ask user if they want to create another file
         create_another = input("Do you want to create another file? (y/n) ").lower()
-        # Check if input is valid
         if create_another in ["y", "n"]:
             break
         print("Invalid input. Please enter 'y' or 'n'.")
-    # Return True if user wants to create another file, False otherwise
-    return create_another == "y"
+    if create_another == "n":
+        sys.exit()
+    else:
+        return True
+
+
 
 
 def main():
