@@ -76,12 +76,14 @@ def add_animations_loop(file_name):
             print("Invalid input. Please enter a valid number.")
             continue
         create_file(file_name, seconds, animation_type)
-        another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
-        if another_animation != "y" and another_animation != "n":
+        while True:
+            another_animation = input("Do you want to add another animation to the file? (y/n) ").lower()
+            if another_animation in ["y", "n"]:
+                break
             print("Invalid input. Please enter 'y' or 'n'.")
-            continue
         if another_animation != "y":
             break
+
 
 
 def create_animation_file(file_name):
