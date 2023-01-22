@@ -15,8 +15,6 @@ def create_file(file_name, seconds, animation_type):
     print(f"{animation_type} added to {file_name}.")
 
 
-
-
 def get_animation_type(animations):
     while True:
         # Print animation options
@@ -38,8 +36,6 @@ def get_animation_type(animations):
                     print("Invalid choice, please enter a valid number.")
             except ValueError:
                 print("Invalid input, please enter a valid number.")
-
-import re
 
 def get_seconds():
     # Loop until user enters valid input
@@ -106,7 +102,6 @@ def add_animations_loop(file_name):
                 return
         else:
             print("Invalid choice, please enter a valid number.")
-
 
 
 def create_animation_file(file_name):
