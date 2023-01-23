@@ -116,23 +116,6 @@ def write_to_file(file_name, seconds, animation_type):
         f.close()
     print(f"{animation_type} added to {file_name}.")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
     main()
 
