@@ -7,6 +7,23 @@ def main():
     while True:
         create_a_file(file_name)
 
+def create_a_file(file_name):
+    # Create file and handle errors
+    file_name = create_output_file(file_name)
+    # Add animations to file
+    add_animations_to_file(file_name)
+    while True:
+        # Ask user if they want to create another file
+        create_another = input("Do you want to create another file? (y/n) ").lower()
+        if create_another in ["y", "n"]:
+            break
+        print("Invalid input. Please enter 'y' or 'n'.")
+    if create_another == "n":
+        sys.exit()
+    else:
+        return True
+
+
 def create_output_file(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
@@ -31,34 +48,7 @@ def create_output_file(file_name):
     # Note to self, don't forget to do this ever again, join the dir and file name
     return os.path.join(dir_name, file_name)
 
-def add_animation_to_file(file_name):
-    # Load animation types from file
-    with open('animation_types.txt', 'r') as f:
-        animations = f.readlines()
-    animations = [x.strip() for x in animations]
-    while True:
-        # Print animation options
-        print("Choose an animation type to add to the file:")
-        for index, animation_type in enumerate(animations):
-            print(f"{index+1}: {animation_type}")
-        print("0: Exit")
-        # Ask user to enter animation type choice
-        choice = input()
-        if not choice:
-            print("Invalid input. Please enter a valid number.")
-            continue
-        choice = int(choice)
-        # Check if choice is 0, if so return None
-        if choice == 0:
-            return None
-        # Check if choice is a valid animation type
-        elif choice in range(1, len(animations)+1):
-            animation_type = animations[choice-1]
-            # Get seconds from user
-            seconds = enter_seconds()
-            # Create file
-            write_to_file(file_name, seconds, animation_type)
-def select_animation(animations):
+def select_animation_type(animations):
     while True:
         # Print animation options
         print("Choose an animation type to add to the file:")
@@ -79,6 +69,22 @@ def select_animation(animations):
                     print("Invalid choice, please enter a valid number.")
             except ValueError:
                 print("Invalid input, please enter a valid number.")
+
+def add_animations_to_file(file_name):
+    # Load animation types from file
+    with open('animation_types.txt', 'r') as f:
+        animations = f.readlines()
+    animations = [x.strip() for x in animations]
+    while True:
+        animation_index = select_animation_type(animations)
+        if animation_index is None:
+            return None
+        animation_type = animations[animation_index]
+        # Get seconds from user
+        seconds = enter_seconds()
+        # Create file
+        write_to_file(file_name, seconds, animation_type)
+
 
 def enter_seconds():
     # Loop until user enters valid input
@@ -122,21 +128,7 @@ def write_to_file(file_name, seconds, animation_type):
 
 
 
-def create_a_file(file_name):
-    # Create file and handle errors
-    file_name = create_output_file(file_name)
-    # Add animations to file
-    add_animation_to_file(file_name)
-    while True:
-        # Ask user if they want to create another file
-        create_another = input("Do you want to create another file? (y/n) ").lower()
-        if create_another in ["y", "n"]:
-            break
-        print("Invalid input. Please enter 'y' or 'n'.")
-    if create_another == "n":
-        sys.exit()
-    else:
-        return True
+
 
 
 
