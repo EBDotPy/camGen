@@ -23,7 +23,6 @@ def create_a_file(file_name):
     else:
         return True
 
-
 def create_output_file(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
@@ -84,7 +83,6 @@ def add_animations_to_file(file_name):
         seconds = enter_seconds()
         # Create file
         write_to_file(file_name, seconds, animation_type)
-
 
 def enter_seconds():
     # Loop until user enters valid input
