@@ -69,21 +69,6 @@ def select_animation_type(animations):
             except ValueError:
                 print("Invalid input, please enter a valid number.")
 
-def add_animations_to_file(file_name):
-    # Load animation types from file
-    with open('animation_types.txt', 'r') as f:
-        animations = f.readlines()
-    animations = [x.strip() for x in animations]
-    while True:
-        animation_index = select_animation_type(animations)
-        if animation_index is None:
-            return None
-        animation_type = animations[animation_index]
-        # Get seconds from user
-        seconds = enter_seconds()
-        # Create file
-        write_to_file(file_name, seconds, animation_type)
-
 def enter_seconds():
     # Loop until user enters valid input
     while True:
@@ -102,6 +87,22 @@ def enter_seconds():
         # Convert seconds to float and return
         return [float(x) for x in seconds]
 
+def add_animations_to_file(file_name):
+    # Load animation types from file
+    with open('animation_types.txt', 'r') as f:
+        animations = f.readlines()
+    animations = [x.strip() for x in animations]
+    while True:
+        animation_index = select_animation_type(animations)
+        if animation_index is None:
+            return None
+        animation_type = animations[animation_index]
+        # Get seconds from user
+        seconds = enter_seconds()
+        # Create file
+        write_to_file(file_name, seconds, animation_type)
+
+
 def write_to_file(file_name, seconds, animation_type):
     # initialize with first value
     data = "\"{}\": \"0:(),".format(animation_type)
@@ -118,4 +119,3 @@ if __name__ == "__main__":
     main()
 
 # TODO: Allow for different frame rates
-# TODO: Put in better order
