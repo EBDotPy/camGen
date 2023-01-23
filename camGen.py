@@ -10,14 +10,9 @@ def create_file(file_name, seconds, animation_type):
     # remove last comma and add closing quotes
     data = data[:-1] + "\",\n"
     with open(file_name, "a") as f:
-        print(file_name)
-        print(seconds)
-        print(animation_type)
-        print(data)
         f.write(data)
         f.close()
     print(f"{animation_type} added to {file_name}.")
-
 
 
 def get_animation_type(animations):
@@ -85,8 +80,6 @@ def create_file_loop(file_name):
     return os.path.join(dir_name, file_name)
 
 
-
-
 def add_animations_loop(file_name):
     # Load animation types from file
     with open('animation_types.txt', 'r') as f:
@@ -114,8 +107,6 @@ def add_animations_loop(file_name):
             seconds = get_seconds()
             # Create file
             create_file(file_name, seconds, animation_type)
-
-
 
 
 def create_animation_file(file_name):
