@@ -2,7 +2,7 @@ import os
 import re
 import sys
 
-def create_file(file_name, seconds, animation_type):
+def write_to_file(file_name, seconds, animation_type):
     # initialize with first value
     data = "\"{}\": \"0:(),".format(animation_type)
     for second in seconds:
@@ -15,7 +15,7 @@ def create_file(file_name, seconds, animation_type):
     print(f"{animation_type} added to {file_name}.")
 
 
-def get_animation_type(animations):
+def select_animation(animations):
     while True:
         # Print animation options
         print("Choose an animation type to add to the file:")
@@ -37,7 +37,7 @@ def get_animation_type(animations):
             except ValueError:
                 print("Invalid input, please enter a valid number.")
 
-def get_seconds():
+def enter_seconds():
     # Loop until user enters valid input
     while True:
         # Ask user for seconds input
@@ -56,7 +56,7 @@ def get_seconds():
         return [float(x) for x in seconds]
 
 
-def create_file_loop(file_name):
+def create_output_file(file_name):
     # Ensure file has .txt extension
     if not file_name.endswith(".txt"):
         file_name += ".txt"
@@ -70,6 +70,7 @@ def create_file_loop(file_name):
             create_another = input(f"{file_name} already exists, enter a different file name or 'n' to exit: ").lower()
             if create_another == "n":
                 sys.exit()
+            # Asks user if they want to create another
             file_name = create_another
         else:
             # Create new file
@@ -80,7 +81,7 @@ def create_file_loop(file_name):
     return os.path.join(dir_name, file_name)
 
 
-def add_animations_loop(file_name):
+def add_animations(file_name):
     # Load animation types from file
     with open('animation_types.txt', 'r') as f:
         animations = f.readlines()
@@ -104,16 +105,16 @@ def add_animations_loop(file_name):
         elif choice in range(1, len(animations)+1):
             animation_type = animations[choice-1]
             # Get seconds from user
-            seconds = get_seconds()
+            seconds = enter_seconds()
             # Create file
-            create_file(file_name, seconds, animation_type)
+            write_to_file(file_name, seconds, animation_type)
 
 
-def create_animation_file(file_name):
+def create_a_file(file_name):
     # Create file and handle errors
-    file_name = create_file_loop(file_name)
+    file_name = create_output_file(file_name)
     # Add animations to file
-    add_animations_loop(file_name)
+    add_animations(file_name)
     while True:
         # Ask user if they want to create another file
         create_another = input("Do you want to create another file? (y/n) ").lower()
@@ -129,7 +130,7 @@ def create_animation_file(file_name):
 def main():
     file_name = input("Enter the file name: ") + "Camera"
     while True:
-        create_animation_file(file_name)
+        create_a_file(file_name)
 
 if __name__ == "__main__":
     main()
