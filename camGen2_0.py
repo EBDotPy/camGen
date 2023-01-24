@@ -9,7 +9,6 @@ import click
 # Main to encompass the whole program, do you want to create a file or exit
 # Creating the file name
 # Select frame rate
-# Select time
 # Select from list of animation types
 # If we're doing all of them then different types require different amounts of input and types
 # Figure out different types of data needed, T/F, string, lists of samplers, min/max settings, etc...
