@@ -32,8 +32,6 @@ import click
 # list parameters to add, do it three per line
 # variables: seconds,
 
-import click
-
 @click.command()
 def main():
     # Ask the user if they want to create a file or exit
