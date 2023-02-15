@@ -19,17 +19,16 @@ import click
 # Allow input to the data created IE, at frame X in type Y would you like to frame X, blank for nothing at frame but move to next
 
 
-# Names
-
 # main
 # file_create
 # animation_type
 # data_copy
 # data_save
+
 # Create a file yes/no > name file > enter frame rate > enter seconds
 # ask for what to add
 # list parameters to add, do it three per line
-# variables: seconds,
+# variables: frames, seconds
 
 @click.command()
 def main():
