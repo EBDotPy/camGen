@@ -1,11 +1,6 @@
 import os
 import json
 
-def load_list(file_path):
-    with open(file_path, 'r') as f:
-        data = json.load(f)
-    return data
-
 # Define a function to load a list from a JSON file
 def load_list(file_path):
     with open(file_path, 'r') as f:
@@ -15,29 +10,15 @@ def load_list(file_path):
 # Get the list of JSON files in the "lists" directory
 json_files = [f for f in os.listdir("lists") if f.endswith(".json")]
 
-# Load the lists from the JSON files and store them in variables
+# Create an empty dictionary to store the lists
+lists = {}
+
+# Load the lists from the JSON files and store them in the dictionary
 for file_name in json_files:
     list_name = os.path.splitext(file_name)[0]
     list_data = load_list(os.path.join("lists", file_name))
-    vars()[list_name] = list_data
+    lists[list_name] = list_data
 
-
-
-# Store the lists in a dictionary
-lists = {
-    "act": actors,
-    "actm": [a for a in actors if a["gender"] == "Male"],
-    "actf": [a for a in actors if a["gender"] == "Female"],
-    "art_styles": art_styles,
-    "artists": artists,
-    "ages": ages,
-    "texture": texture,
-    "location": location,
-    "time_of_day": time_of_day,
-    "season": season,
-    "mood": mood,
-    "lighting": lighting
-}
 
 # Prompt the user for the prompt
 prompt = input("Enter your prompt or type !help to list options: ")
