@@ -1,9 +1,10 @@
-# Define a function to load a list from a JSON file
-function load_list(file_path):
-    open the file at file_path
-    read the contents of the file as JSON
-    close the file
-    return the contents as a list
+import json
+
+def load_list(file_path):
+    with open(file_path, 'r') as f:
+        data = json.load(f)
+    return data
+
 
 # Load the lists from their JSON files
 # for loop to load all the lists
